@@ -1,25 +1,16 @@
 package pwmkr;
 
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.TreeSet;
 
 public class MainClass
 {
-
-	private static Pattern pat;
-	private static Matcher myMatch;
-	private static Random rand;
-
+	private final String alphaClass = "[a-zA-Z]";
+	private final String alphaNumClass = "[a-zA-Z0-9@]";
+	private final String symbolClass = "[a-zA-Z0-9@!#$%]";
+	
 	public static void main(String[] args)
 	{
-		int defaultSeed = "deadbeef".hashCode();
-		int seed = defaultSeed;
-
 		//if (seed == defaultSeed)
 		//{
 		//	 defaultGen("hi", "[a-zA-Z0-9@!#$%]", 1000, 1000);
@@ -41,71 +32,28 @@ public class MainClass
 		
 		try
 		{
-			System.out.println(Algorithm.getPW("hi", row, column, length));
+			int c = 0;
+			TreeSet<String> pws = new TreeSet<String>();
+			for(int i=0;i<10000;i++)
+			{
+				for(int j=0;j<10000;j++)
+				{
+					Algorithm.setValues(A, B, i, j);
+					String temp = Algorithm.getPW("hi",i,j,length);
+					if(pws.contains(temp))
+					{
+						//System.out.println(temp);
+						System.out.println(c++);
+					}
+					else
+					{
+						pws.add(temp);
+					}
+				}
+			}
+			//System.out.println(Algorithm.getPW("hi", row, column, length));
 		}
 		catch (FileNotFoundException e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	private static int nextIntWrap(Random rand)
-	{
-		int next;
-		char nextChar;
-
-		do
-		{
-			next = rand.nextInt(128);
-			nextChar = (char) next;
-			String nextCharStr = new String("" + nextChar);
-			myMatch = pat.matcher(nextCharStr);
-		}
-		while (!myMatch.matches());
-
-		return next;
-	}
-
-	private static void defaultGen(String name, String characterClass, int rows,
-			int columns)
-	{
-		pat = Pattern.compile(characterClass);
-		rand = new Random();
-
-		generateFile(name, rows, columns);
-	}
-
-	private static void seedGen(String name, String characterClass, int rows,
-			int columns, int seed)
-	{
-		pat = Pattern.compile(characterClass);
-		rand = new Random(seed);
-
-		generateFile(name, rows, columns);
-	}
-
-	private static void generateFile(String name, int rows, int columns)
-	{
-		int[] intArray = new int[rows * columns];
-		for (int i = 0; i < rows * columns; i++)
-		{
-			intArray[i] = nextIntWrap(rand);
-		}
-
-		try
-		{
-			PrintWriter fout = new PrintWriter(new FileWriter(name + ".txt"));
-			for (int j = 0; j < rows; j++)
-			{
-				for (int k = 0; k < columns; k++)
-				{
-					fout.print((char) intArray[j * rows + k]);
-				}
-				fout.println();
-			}
-			fout.close();
-		}
-		catch (IOException e)
 		{
 			e.printStackTrace();
 		}

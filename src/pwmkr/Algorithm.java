@@ -21,10 +21,10 @@ public class Algorithm {
 		Cprime = Math.abs((B + Aprime.toString()).hashCode());
 		Dprime = Math.abs((A + Bprime.toString()).hashCode());
 
-		System.out.println(A + ": " + Aprime);
-		System.out.println(B + ": " + Bprime);
-		System.out.println(B + Aprime.toString() + ": " + Cprime);
-		System.out.println(A + Bprime.toString() + ": " + Dprime);
+		//System.out.println(A + ": " + Aprime);
+		//System.out.println(B + ": " + Bprime);
+		//System.out.println(B + Aprime.toString() + ": " + Cprime);
+		//System.out.println(A + Bprime.toString() + ": " + Dprime);
 
 		bfi = BigInteger.valueOf(Cprime);
 		bfi = bfi.multiply(BigInteger.valueOf(Dprime));
@@ -43,7 +43,7 @@ public class Algorithm {
 			bfiString = bfi.toString();
 		}
 
-		System.out.println("bfi: " + bfi);
+		//System.out.println("bfi: " + bfi);
 	}
 	
 	public static String getPW(String filename, int rowPos, int colPos,
@@ -57,7 +57,8 @@ public class Algorithm {
 		{
 			inRAMFile.add(scan.nextLine());
 		}
-
+		scan.close();
+		
 		int rows = inRAMFile.size();
 		int columns = inRAMFile.get(0).length();
 
@@ -71,7 +72,7 @@ public class Algorithm {
 			offset[i] = inRAMFile.get((nrow + (i + ncol) / columns) % rows)
 					.charAt((ncol + i) % columns);
 		}
-		System.out.println(nrow + "," + ncol + "," + nLength);
+		//System.out.println(nrow + "," + ncol + "," + nLength);
 
 		String bfiString = bfi.toString();
 
