@@ -13,13 +13,13 @@ public class Algorithm {
 	
 	public Algorithm() { }
 	
-	public static void setValues(String A, String B, Integer C, Integer D)
+	private static void setValues(String A, String B, Integer C, Integer D)
 	{
 		Aprime = Math.abs(A.hashCode());
 		Bprime = Math.abs(B.hashCode());
 
-		Cprime = Math.abs((B + Aprime.toString()).hashCode());
-		Dprime = Math.abs((A + Bprime.toString()).hashCode());
+		Cprime = Math.abs((B + C.toString()).hashCode());
+		Dprime = Math.abs((A + D.toString()).hashCode());
 
 		//System.out.println(A + ": " + Aprime);
 		//System.out.println(B + ": " + Bprime);
@@ -46,9 +46,10 @@ public class Algorithm {
 		//System.out.println("bfi: " + bfi);
 	}
 	
-	public static String getPW(String filename, int rowPos, int colPos,
+	public static String getPW(String filename, String input1, String input2, int row, int col,
 			int length) throws FileNotFoundException
 	{
+		setValues(input1,input2,row,col);
 		File readFile = new File(filename + ".txt");
 		Scanner scan = new Scanner(readFile);
 		ArrayList<String> inRAMFile = new ArrayList<String>();
@@ -62,8 +63,8 @@ public class Algorithm {
 		int rows = inRAMFile.size();
 		int columns = inRAMFile.get(0).length();
 
-		int nrow = Math.abs((Aprime * rowPos) % rows);
-		int ncol = Math.abs((Bprime * colPos) % columns);
+		int nrow = Math.abs((Aprime * row) % rows);
+		int ncol = Math.abs((Bprime * col) % columns);
 		int nLength = Math.abs((Cprime * length) % (rows * columns));
 
 		char[] offset = new char[nLength];

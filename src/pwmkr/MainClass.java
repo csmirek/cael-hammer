@@ -1,7 +1,7 @@
 package pwmkr;
 
 import java.io.FileNotFoundException;
-import java.util.TreeSet;
+import java.util.HashSet;
 
 public class MainClass
 {
@@ -27,31 +27,37 @@ public class MainClass
 		int column = 100;
 
 		int length = 15;
-
-		Algorithm.setValues(A, B, row, column);
 		
 		try
 		{
 			int c = 0;
-			TreeSet<String> pws = new TreeSet<String>();
-			for(int i=0;i<10000;i++)
+			int m = 0;
+			int a = 0;
+			HashSet<String> pws = new HashSet<String>();
+			for(int i=0;i<1000;i++)
 			{
-				for(int j=0;j<10000;j++)
+				for(int j=0;j<1000;j++)
 				{
-					Algorithm.setValues(A, B, i, j);
-					String temp = Algorithm.getPW("hi",i,j,length);
+					String temp = Algorithm.getPW("hi",A,B,i,j,length);
 					if(pws.contains(temp))
 					{
 						//System.out.println(temp);
-						System.out.println(c++);
+						System.out.println("i: "+ i +" j: " + j + " c: " + (c++));
 					}
 					else
 					{
 						pws.add(temp);
+						if(m%1000 == 0)
+						{
+							System.out.println("added: " + temp + " is the " + m + "th term");
+						}
+						m++;
 					}
+					System.out.println(a++);
 				}
 			}
 			//System.out.println(Algorithm.getPW("hi", row, column, length));
+			System.out.println("total unique: " + pws.size());
 		}
 		catch (FileNotFoundException e)
 		{
