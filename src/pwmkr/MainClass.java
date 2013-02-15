@@ -31,7 +31,7 @@ public class MainClass
 		
 		try
 		{
-			System.out.println(Algorithm.getPW("ho", "yahoo", "abcdefg", 100, 200, 15));
+			System.out.println(Algorithm.getPW("ho", "yahoo", "FB", 100, 200, 15));
 		}
 		catch (FileNotFoundException e)
 		{

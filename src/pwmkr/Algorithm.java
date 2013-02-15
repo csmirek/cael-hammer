@@ -13,10 +13,20 @@ public class Algorithm {
 	
 	public Algorithm() { }
 	
+	private static String reverseString(String input)
+	{
+		String ret = new String();
+		
+		for(int i=input.length()-1;i!=-1;i--)
+			ret = ret + input.charAt(i);
+		
+		return ret;
+	}
+	
 	private static void setValues(String A, String B, Integer C, Integer D)
 	{
-		Aprime = Math.abs(A.hashCode());
-		Bprime = Math.abs(B.hashCode());
+		Aprime = Math.abs(reverseString(A).hashCode());
+		Bprime = Math.abs(reverseString(B).hashCode());
 
 		Cprime = Math.abs((B + C.toString()).hashCode());
 		Dprime = Math.abs((A + D.toString()).hashCode());
